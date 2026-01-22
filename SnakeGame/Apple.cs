@@ -9,13 +9,11 @@ namespace SnakeGame
     public class Apple : Fruit
     {
         public Apple(int x, int y) : base(x, y)
-        {
+        { 
         }
-        public override void ApplyEffect(Snake snake)
-        {
-            snake.SpeedUp(5); // +5 speed
-        }
+        public override int GrowBonus => 0;
+        public override int SpeedBonus => 5;
     }
-    
-    
+
+
 }

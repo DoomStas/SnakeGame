@@ -9,13 +9,13 @@ namespace SnakeGame
     public class Snake
     {
         //Body of the snake
-        public (int X, int Y)[] Body { get; set; }
+        public List<(int X, int Y)> Body { get; set; }
 
         //Direction of the snake
         public Direction CurentDirection { get; set; }
 
         //Length of the snake
-        public int Length => Body.Length;
+        public int Length => Body.Count;
 
         //Head of the snake
         public (int X, int Y) Head => Body[0];
@@ -23,10 +23,10 @@ namespace SnakeGame
         //Constructor
         public Snake(int startX, int startY, int startLenght = 3)
         {
-            Body = new (int X, int Y)[startLenght];
+            Body = new List<(int X, int Y)>();
             for (int i = 0; i < startLenght; i++)
             {
-                Body[i] = (startX - i, startY);
+                Body.Add ((startX - i, startY));
             }
             CurentDirection = Direction.Right;
         }
@@ -51,34 +51,19 @@ namespace SnakeGame
                     break;
             }
 
-            //Create new body array with new head position
-            (int X, int Y)[] newBody = new (int X, int Y)[Body.Length];
-            //Set new head
-            newBody[0] = newHead;
-            //Shift the rest of the body
-            for (int i = 1; i < Body.Length; i++)
-            {
-                newBody[i] = Body[i - 1];
-            }
-            Body = newBody;
+            Body.Insert(0, newHead);
+            Body.RemoveAt(Body.Count - 1);
         }
-        
-        //Eat food
+
         public void Eat()
         {
-            (int X, int Y)[] newBody = new (int X, int Y)[Body.Length + 1];
-            for (int i = 0; i < Body.Length; i++)
-            {
-                newBody[i] = Body[i];
-            }
-            // Duplicate the last segment to grow the snake
-            newBody[newBody.Length - 1] = Body[Body.Length - 1];
-            Body = newBody;
+            Body.Add(Body.Last());
         }
+     
 
         public bool IsSelfCollision()
         {
-            for (int i = 1; i < Body.Length; i++)
+            for (int i = 1; i < Body.Count; i++)
             {
                 if (Body[i].X == Head.X && Body[i].Y == Head.Y)
                 {

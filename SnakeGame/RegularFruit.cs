@@ -8,24 +8,10 @@ namespace SnakeGame
 {
     public class RegularFruit : Fruit
     {
-        public string Name { get; }
-
-        private static readonly string[] FruitNames = new string[]
-        {
-            "Cherry",
-            "Orange",
-            "Pineapple",
-            "Strawberry",
-            "Watermelon"
-        };
-        public RegularFruit(int x, int y) : base(x, y)
-        {
-            Random rand = new Random();
-            Name = FruitNames[rand.Next(FruitNames.Length)];
-        }
-        public override void ApplyEffect(Snake snake)
-        {
-            snake.Eat(); //+1 length
-        }
+       public RegularFruit(int x, int y) : base(x, y)
+       {
+       }
+        public override int GrowBonus => 1;
+        public override int SpeedBonus => 0;
     }
 }

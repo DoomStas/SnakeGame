@@ -11,11 +11,7 @@ namespace SnakeGame
         public Banana(int x, int y) : base(x, y)
         {
         }
-        public override void ApplyEffect(Snake snake)
-        {
-            snake.Eat(); 
-            snake.Eat();     
-            snake.Eat();
-        }
+        public override int GrowBonus => 3;
+        public override int SpeedBonus => 0;
     }
 }
